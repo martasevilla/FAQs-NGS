@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     TÍTULO DE LA PÁGINA (aparece en la pestaña del navegador)
+     ============================================================ -->
+<title>Preguntas frecuentes</title>
+
+<style>
+:root{--ink:#15211d;--muted:#5d6b64;--accent:#0f766e;--border:#e3ebe8;--bg:#f6f8f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px}
+h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 28px}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  box-shadow:0 8px 24px rgba(20,40,34,.06)}
+.acc{border-bottom:1px solid var(--border)}
+.acc:last-child{border-bottom:none}
+.acc-q{width:100%;text-align:left;background:none;border:none;font:inherit;font-size:16px;
+  font-weight:600;color:var(--ink);padding:17px 22px;cursor:pointer;display:flex;
+  justify-content:space-between;gap:12px;align-items:center}
+.acc-q:hover{background:#f7faf9}
+.chev{color:var(--accent);transition:transform .2s;flex:none}
+.acc.open .chev{transform:rotate(90deg)}
+.acc-a{max-height:0;overflow:hidden;transition:max-height .25s ease}
+.acc-a .inner{padding:0 22px 20px;color:#33413b;font-size:15px;
+  font-family:Georgia,"Times New Roman",serif;line-height:1.7;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============================================================
+       ENCABEZADO: cambia el título y el subtítulo por los tuyos
+       ============================================================ -->
+  <h1>Preguntas frecuentes</h1>
+  <p class="sub">Dudas habituales del servicio</p>
+
+  <div class="card">
+
+    <!-- ============================================================
+         CADA PREGUNTA ES UN BLOQUE "acc" COMO ESTE.
+         - Escribe la pregunta dentro del <span>...</span>
+         - Escribe la respuesta dentro del <div class="inner">...</div>
+         Para AÑADIR otra pregunta: copia un bloque entero (desde
+         <div class="acc"> hasta su </div> de cierre) y pégalo debajo.
+         Para QUITAR una: borra el bloque entero.
+         ============================================================ -->
+
+    <div class="acc">
+      <button class="acc-q"><span>¿Cuánto tarda el resultado?</span><span class="chev">&rsaquo;</span></button>
+      <div class="acc-a"><div class="inner">Escribe aquí la respuesta.</div></div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-q"><span>¿Cómo recojo el informe?</span><span class="chev">&rsaquo;</span></button>
+      <div class="acc-a"><div class="inner">Escribe aquí la respuesta.</div></div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-q"><span>¿A quién contacto si tengo dudas?</span><span class="chev">&rsaquo;</span></button>
+      <div class="acc-a"><div class="inner">Escribe aquí la respuesta.</div></div>
+    </div>
+
+    <!-- FIN de las preguntas -->
+
+  </div>
+</div>
+
+<!-- No hace falta tocar nada de aquí abajo: es lo que abre y cierra cada pregunta -->
+<script>
+document.querySelectorAll('.acc-q').forEach(function(b){
+  b.addEventListener('click',function(){
+    var acc=b.parentNode,a=b.nextElementSibling,open=acc.classList.toggle('open');
+    a.style.maxHeight=open?a.scrollHeight+'px':'';
+  });
+});
+</script>
+</body>
+</html>
