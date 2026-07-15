@@ -3,20 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <!-- ============================================================
      TÍTULO DE LA PÁGINA (aparece en la pestaña del navegador)
      ============================================================ -->
 <title>Preguntas frecuentes</title>
-
 <style>
-:root{--ink:#15211d;--muted:#5d6b64;--accent:#0f766e;--border:#e3ebe8;--bg:#f6f8f7}
+:root{--ink:#15211d;--muted:#5d6b64;--accent:#0f766e;--border:#e3ebe8;--bg:#f6f8f7;--line:#c7d6d0}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
 .wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px}
 h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
 .sub{color:var(--muted);margin:0 0 28px}
+
+/* ---- Sección inicial: conceptos ---- */
+.intro{margin:0 0 34px}
+.intro-h{font-size:19px;margin:0 0 4px}
+.intro-lead{color:var(--muted);margin:0 0 16px;font-size:15px}
+.concepts{display:grid;gap:14px}
+.concept{background:#fff;border:1px solid var(--border);border-radius:14px;
+  box-shadow:0 8px 24px rgba(20,40,34,.06);padding:18px 20px;
+  display:flex;gap:18px;align-items:center}
+.concept-ill{flex:none;width:92px;height:66px}
+.concept-ill svg{width:100%;height:100%;display:block}
+.concept h3{font-size:16px;margin:0 0 5px;color:var(--ink)}
+.concept p{margin:0;font-size:14px;color:#33413b;line-height:1.6;
+  font-family:Georgia,"Times New Roman",serif}
+@media(max-width:520px){.concept{flex-direction:column;text-align:center;gap:12px}}
+
+/* ---- FAQ ---- */
 .card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;
   box-shadow:0 8px 24px rgba(20,40,34,.06)}
 .acc{border-bottom:1px solid var(--border)}
@@ -34,15 +49,88 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
 </head>
 <body>
 <div class="wrap">
-
   <!-- ============================================================
        ENCABEZADO: cambia el título y el subtítulo por los tuyos
        ============================================================ -->
   <h1>Preguntas frecuentes</h1>
   <p class="sub">Dudas habituales del servicio</p>
 
-  <div class="card">
+  <!-- ============================================================
+       SECCIÓN INICIAL: conceptos clave (definición en catalán)
+       Para editar un concepto: cambia el <h3> y el <p>.
+       El dibujo de cada uno es el bloque <svg> de la izquierda.
+       ============================================================ -->
+  <section class="intro">
+    <h2 class="intro-h">Conceptes bàsics</h2>
+    <p class="intro-lead">Tres idees per entendre el teu estudi genètic.</p>
 
+    <div class="concepts">
+
+      <!-- 1. EXOMA COMPLET -->
+      <article class="concept">
+        <div class="concept-ill">
+          <svg viewBox="0 0 96 72" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Exoma complet">
+            <line x1="6" y1="36" x2="90" y2="36" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
+            <rect x="10" y="27" width="12" height="18" rx="3.5" fill="var(--accent)"/>
+            <rect x="30" y="27" width="9"  height="18" rx="3.5" fill="var(--accent)"/>
+            <rect x="47" y="27" width="14" height="18" rx="3.5" fill="var(--accent)"/>
+            <rect x="69" y="27" width="8"  height="18" rx="3.5" fill="var(--accent)"/>
+            <rect x="80" y="27" width="6"  height="18" rx="3.5" fill="var(--accent)"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Exoma complet</h3>
+          <p>L'exoma és el conjunt de regions del genoma que contenen les instruccions per fabricar proteïnes (els exons). És només un 1–2 % del genoma, però hi ha la major part de les variants que causen malaltia. Seqüenciar l'exoma complet vol dir llegir totes aquestes regions per buscar-hi possibles causes genètiques.</p>
+        </div>
+      </article>
+
+      <!-- 2. REANÀLISI -->
+      <article class="concept">
+        <div class="concept-ill">
+          <svg viewBox="0 0 96 72" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Reanàlisi">
+            <rect x="16" y="14" width="40" height="42" rx="5" fill="#fff" stroke="var(--accent)" stroke-width="2"/>
+            <line x1="23" y1="25" x2="49" y2="25" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="34" x2="49" y2="34" stroke="var(--line)"  stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="43" x2="41" y2="43" stroke="var(--line)"  stroke-width="2" stroke-linecap="round"/>
+            <circle cx="58" cy="50" r="15" fill="var(--bg)"/>
+            <g transform="translate(49.4 41.4) scale(0.72)" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"/>
+              <polyline points="1 20 1 14 7 14"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <h3>Reanàlisi</h3>
+          <p>La reanàlisi consisteix a tornar a estudiar les dades ja obtingudes, aplicant-hi el coneixement i les bases de dades més recents. No cal una mostra nova. Com que cada any es descobreixen gens i malalties, pot oferir un diagnòstic que abans no era possible.</p>
+        </div>
+      </article>
+
+      <!-- 3. REAVALUACIÓ DE VARIANTS -->
+      <article class="concept">
+        <div class="concept-ill">
+          <svg viewBox="0 0 96 72" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Reavaluació de variants">
+            <line x1="8" y1="44" x2="88" y2="44" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="16" cy="44" r="2.5" fill="var(--line)"/>
+            <circle cx="28" cy="44" r="2.5" fill="var(--line)"/>
+            <circle cx="40" cy="44" r="2.5" fill="var(--line)"/>
+            <circle cx="66" cy="44" r="2.5" fill="var(--line)"/>
+            <circle cx="78" cy="44" r="2.5" fill="var(--line)"/>
+            <circle cx="50" cy="44" r="4.5" fill="var(--accent)"/>
+            <circle cx="50" cy="38" r="15" fill="rgba(255,255,255,.55)" stroke="var(--accent)" stroke-width="3"/>
+            <line x1="61" y1="49" x2="72" y2="60" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Reavaluació de variants</h3>
+          <p>La reavaluació revisa la classificació d'una variant concreta segons l'evidència nova (literatura científica, dades de població i criteris actualitzats). Una variant de significat incert (VUS) es pot reclassificar amb el temps com a benigna o com a patogènica.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="card">
     <!-- ============================================================
          CADA PREGUNTA ES UN BLOQUE "acc" COMO ESTE.
          - Escribe la pregunta dentro del <span>...</span>
@@ -51,27 +139,21 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
          <div class="acc"> hasta su </div> de cierre) y pégalo debajo.
          Para QUITAR una: borra el bloque entero.
          ============================================================ -->
-
     <div class="acc">
       <button class="acc-q"><span>¿Cuánto tarda el resultado?</span><span class="chev">&rsaquo;</span></button>
       <div class="acc-a"><div class="inner">Escribe aquí la respuesta.</div></div>
     </div>
-
     <div class="acc">
       <button class="acc-q"><span>¿Cómo recojo el informe?</span><span class="chev">&rsaquo;</span></button>
       <div class="acc-a"><div class="inner">Escribe aquí la respuesta.</div></div>
     </div>
-
     <div class="acc">
       <button class="acc-q"><span>¿A quién contacto si tengo dudas?</span><span class="chev">&rsaquo;</span></button>
       <div class="acc-a"><div class="inner">Escribe aquí la respuesta.</div></div>
     </div>
-
     <!-- FIN de las preguntas -->
-
   </div>
 </div>
-
 <!-- No hace falta tocar nada de aquí abajo: es lo que abre y cierra cada pregunta -->
 <script>
 document.querySelectorAll('.acc-q').forEach(function(b){
