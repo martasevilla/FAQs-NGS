@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- ============================================================
-     TÍTULO DE LA PÁGINA (aparece en la pestaña del navegador)
+     TÍTOL DE LA PÀGINA (apareix a la pestanya del navegador)
      ============================================================ -->
-<title>Preguntas frecuentes</title>
+<title>Estudis germinals NGS</title>
 <style>
-:root{--ink:#15211d;--muted:#5d6b64;--accent:#0f766e;--border:#e3ebe8;--bg:#f6f8f7;--line:#c7d6d0}
+:root{--ink:#15211d;--muted:#5d6b64;--accent:#0f766e;--accent-d:#0c5f58;--border:#e3ebe8;
+      --bg:#f6f8f7;--line:#c7d6d0;--ok:#16a34a;--warn:#e08c00;--no:#dc2626}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
 .wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px}
 h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
-.sub{color:var(--muted);margin:0 0 28px}
+.sub{color:var(--muted);margin:0 0 30px}
+a{color:var(--accent)}
 
-/* ---- Sección inicial: conceptos ---- */
-.intro{margin:0 0 34px}
-.intro-h{font-size:19px;margin:0 0 4px}
-.intro-lead{color:var(--muted);margin:0 0 16px;font-size:15px}
+/* ---- Seccions (títols comuns) ---- */
+.sec{margin:0 0 34px}
+.sec-h{font-size:19px;margin:0 0 4px}
+.sec-lead{color:var(--muted);margin:0 0 16px;font-size:15px}
+
+/* ---- Conceptes (amb dibuix) ---- */
 .concepts{display:grid;gap:14px}
 .concept{background:#fff;border:1px solid var(--border);border-radius:14px;
   box-shadow:0 8px 24px rgba(20,40,34,.06);padding:18px 20px;
@@ -31,7 +35,31 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
   font-family:Georgia,"Times New Roman",serif}
 @media(max-width:520px){.concept{flex-direction:column;text-align:center;gap:12px}}
 
-/* ---- FAQ ---- */
+/* ---- Tipus de troballes ---- */
+.findings{display:grid;gap:12px}
+.finding{background:#fff;border:1px solid var(--border);border-left-width:4px;border-radius:12px;
+  box-shadow:0 6px 18px rgba(20,40,34,.05);padding:15px 18px;display:flex;gap:14px;align-items:flex-start}
+.finding-ico{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  font-size:15px;font-weight:700;line-height:1;color:#fff;font-family:system-ui,sans-serif}
+.finding h3{font-size:15px;margin:1px 0 4px;color:var(--ink)}
+.finding p{margin:0;font-size:13.5px;color:#33413b;line-height:1.55;
+  font-family:Georgia,"Times New Roman",serif}
+.f-dx{border-left-color:var(--ok)}   .f-dx .finding-ico{background:var(--ok)}
+.f-pr{border-left-color:var(--warn)} .f-pr .finding-ico{background:var(--warn)}
+.f-nc{border-left-color:var(--no)}   .f-nc .finding-ico{background:var(--no)}
+.f-al{border-left-color:var(--accent)} .f-al .finding-ico{background:var(--accent)}
+
+/* ---- Llistats de gens ---- */
+.genes{background:#fff;border:1px solid var(--border);border-radius:14px;
+  box-shadow:0 8px 24px rgba(20,40,34,.06);padding:22px 22px 20px}
+.btn-link{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;
+  text-decoration:none;font-weight:600;font-size:15px;padding:12px 18px;border-radius:10px;
+  transition:background .15s}
+.btn-link:hover{background:var(--accent-d)}
+.genes-note{margin:16px 0 0;font-size:13.5px;color:var(--muted);line-height:1.65}
+.genes-note strong{color:var(--ink)}
+
+/* ---- Preguntes (FAQ) ---- */
 .card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;
   box-shadow:0 8px 24px rgba(20,40,34,.06)}
 .acc{border-bottom:1px solid var(--border)}
@@ -45,31 +73,30 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
 .acc-a{max-height:0;overflow:hidden;transition:max-height .25s ease}
 .acc-a .inner{padding:0 22px 20px;color:#33413b;font-size:15px;
   font-family:Georgia,"Times New Roman",serif;line-height:1.7;white-space:pre-wrap}
+.acc-a .inner a{font-weight:600}
 </style>
 </head>
 <body>
 <div class="wrap">
   <!-- ============================================================
-       ENCABEZADO: cambia el título y el subtítulo por los tuyos
+       CAPÇALERA: canvia el títol i el subtítol pels teus
        ============================================================ -->
-  <h1>Preguntas frecuentes</h1>
-  <p class="sub">Dudas habituales del servicio</p>
+  <h1>Estudis germinals NGS</h1>
+  <p class="sub">Guia ràpida i preguntes freqüents</p>
 
   <!-- ============================================================
-       SECCIÓN INICIAL: conceptos clave (definición en catalán)
-       Para editar un concepto: cambia el <h3> y el <p>.
-       El dibujo de cada uno es el bloque <svg> de la izquierda.
+       SECCIÓ 1: conceptes clau
        ============================================================ -->
-  <section class="intro">
-    <h2 class="intro-h">Conceptes bàsics</h2>
-    <p class="intro-lead">Tres idees per entendre el teu estudi genètic.</p>
+  <section class="sec">
+    <h2 class="sec-h">Conceptes bàsics</h2>
+    <p class="sec-lead">Tres idees per entendre el teu estudi genètic.</p>
 
     <div class="concepts">
 
-      <!-- 1. EXOMA COMPLET -->
+      <!-- 1. EXOMA COMPLET (WES) -->
       <article class="concept">
         <div class="concept-ill">
-          <svg viewBox="0 0 96 72" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Exoma complet">
+          <svg viewBox="0 0 96 72" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Exoma complet (WES)">
             <line x1="6" y1="36" x2="90" y2="36" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
             <rect x="10" y="27" width="12" height="18" rx="3.5" fill="var(--accent)"/>
             <rect x="30" y="27" width="9"  height="18" rx="3.5" fill="var(--accent)"/>
@@ -79,8 +106,8 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
           </svg>
         </div>
         <div>
-          <h3>Exoma complet</h3>
-          <p>L'exoma és el conjunt de regions del genoma que contenen les instruccions per fabricar proteïnes (els exons). És només un 1–2 % del genoma, però hi ha la major part de les variants que causen malaltia. Seqüenciar l'exoma complet vol dir llegir totes aquestes regions per buscar-hi possibles causes genètiques.</p>
+          <h3>Exoma complet (WES)</h3>
+          <p>Seqüenciació de <strong>totes les regions codificants</strong> del genoma (els exons), on es concentra la major part de les variants causants de malaltia. A diferència de l'exoma clínic (CES), que se centra en un llistat de gens seleccionats, el WES analitza tots els gens amb regió codificant.</p>
         </div>
       </article>
 
@@ -102,14 +129,14 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
         </div>
         <div>
           <h3>Reanàlisi</h3>
-          <p>La reanàlisi consisteix a tornar a estudiar les dades ja obtingudes, aplicant-hi el coneixement i les bases de dades més recents. No cal una mostra nova. Com que cada any es descobreixen gens i malalties, pot oferir un diagnòstic que abans no era possible.</p>
+          <p>Reanotació de dades genòmiques. Si l'estudi original és un CES i el reanàlisi és negatiu cursarem automàticament un WES, sempre i quan els gens sol·licitats no estiguin coberts al CES i tinguin prou evidència clínica. <strong>NO CAL fer petició nova.</strong> El resultat s'informarà en un únic informe<sup>3</sup>.</p>
         </div>
       </article>
 
-      <!-- 3. REAVALUACIÓ DE VARIANTS -->
+      <!-- 3. RE-AVALUACIÓ DE VARIANTS -->
       <article class="concept">
         <div class="concept-ill">
-          <svg viewBox="0 0 96 72" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Reavaluació de variants">
+          <svg viewBox="0 0 96 72" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Re-avaluació de variants">
             <line x1="8" y1="44" x2="88" y2="44" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
             <circle cx="16" cy="44" r="2.5" fill="var(--line)"/>
             <circle cx="28" cy="44" r="2.5" fill="var(--line)"/>
@@ -122,39 +149,98 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
           </svg>
         </div>
         <div>
-          <h3>Reavaluació de variants</h3>
-          <p>La reavaluació revisa la classificació d'una variant concreta segons l'evidència nova (literatura científica, dades de població i criteris actualitzats). Una variant de significat incert (VUS) es pot reclassificar amb el temps com a benigna o com a patogènica.</p>
+          <h3>Re-avaluació de variants</h3>
+          <p>Revisió i interpretació actualitzada de variants genètiques prèviament informades. Permet confirmar, reclassificar o descartar la rellevància de variants prèviament identificades sense necessitat de generar noves dades de seqüenciació.</p>
         </div>
       </article>
 
     </div>
   </section>
 
-  <div class="card">
-    <!-- ============================================================
-         CADA PREGUNTA ES UN BLOQUE "acc" COMO ESTE.
-         - Escribe la pregunta dentro del <span>...</span>
-         - Escribe la respuesta dentro del <div class="inner">...</div>
-         Para AÑADIR otra pregunta: copia un bloque entero (desde
-         <div class="acc"> hasta su </div> de cierre) y pégalo debajo.
-         Para QUITAR una: borra el bloque entero.
-         ============================================================ -->
-    <div class="acc">
-      <button class="acc-q"><span>¿Cuánto tarda el resultado?</span><span class="chev">&rsaquo;</span></button>
-      <div class="acc-a"><div class="inner">Escribe aquí la respuesta.</div></div>
+  <!-- ============================================================
+       SECCIÓ 2: tipus de troballes
+       ============================================================ -->
+  <section class="sec">
+    <h2 class="sec-h">Tipus de troballes</h2>
+    <p class="sec-lead">Què pot indicar el teu informe.</p>
+
+    <div class="findings">
+
+      <article class="finding f-dx">
+        <span class="finding-ico">&#10003;</span>
+        <div>
+          <h3>Troballes probablement diagnòstiques</h3>
+          <p>S'han identificat una o més variants genètiques amb prou evidència per considerar-les causants de la malaltia o altament relacionades amb el fenotip observat. En aquests casos, la troballa té una alta probabilitat d'explicar la sospita clínica que ha motivat l'estudi.</p>
+        </div>
+      </article>
+
+      <article class="finding f-pr">
+        <span class="finding-ico">?</span>
+        <div>
+          <h3>Troballes de possible rellevància clínica</h3>
+          <p>S'han identificat variants amb una relació potencial amb el fenotip del pacient, però l'evidència disponible actualment no és suficient per confirmar el paper diagnòstic. Aquestes troballes poden adquirir més rellevància en el futur si es disposa de nova informació clínica, familiar o científica.</p>
+        </div>
+      </article>
+
+      <article class="finding f-nc">
+        <span class="finding-ico">&#10005;</span>
+        <div>
+          <h3>No concloent</h3>
+          <p>No s'han identificat variants amb prou evidència per establir una relació clara amb el fenotip o la sospita clínica. Un resultat no concloent no exclou l'existència d'una causa genètica subjacent i pot justificar futurs reanàlisis a mesura que augmenti el coneixement científic.</p>
+        </div>
+      </article>
+
+      <article class="finding f-al">
+        <span class="finding-ico">+</span>
+        <div>
+          <h3>Altres troballes genètiques</h3>
+          <p>Qualsevol dels resultats anteriors és compatible amb un informe que inclogui un apartat d'altres troballes genètiques, on es descriuen variants detectades que no disposen de prou evidència per considerar-se candidates sòlides. Es reporten per transparència i traçabilitat, però en general tenen una probabilitat baixa de resultar clínicament rellevants amb la informació disponible.</p>
+        </div>
+      </article>
+
     </div>
-    <div class="acc">
-      <button class="acc-q"><span>¿Cómo recojo el informe?</span><span class="chev">&rsaquo;</span></button>
-      <div class="acc-a"><div class="inner">Escribe aquí la respuesta.</div></div>
+  </section>
+
+  <!-- ============================================================
+       SECCIÓ 3: llistats de gens
+       ⬇⬇⬇  ENGANXA AQUÍ L'URL DELS LLISTATS a href="..."  ⬇⬇⬇
+       ============================================================ -->
+  <section class="sec">
+    <h2 class="sec-h">Llistats de gens</h2>
+    <div class="genes">
+      <a class="btn-link" href="#" target="_blank" rel="noopener">Accedeix als llistats de gens disponibles &rarr;</a>
+      <p class="genes-note"><strong>Com s'han construït:</strong> els llistats de gens són interns i s'actualitzen periòdicament. Es construeixen integrant diferents fonts d'evidència: PanelApp UK i PanelApp Australia, les recomanacions de CatSalut, guies clíniques i bibliografia científica rellevant. Cada gen s'inclou segons la solidesa de la relació gen&ndash;malaltia.</p>
     </div>
-    <div class="acc">
-      <button class="acc-q"><span>¿A quién contacto si tengo dudas?</span><span class="chev">&rsaquo;</span></button>
-      <div class="acc-a"><div class="inner">Escribe aquí la respuesta.</div></div>
+  </section>
+
+  <!-- ============================================================
+       SECCIÓ 4: preguntes freqüents
+       CADA PREGUNTA ÉS UN BLOC "acc" COM AQUEST.
+       - Escriu la pregunta dins del <span>...</span>
+       - Escriu la resposta dins del <div class="inner">...</div>
+       Per AFEGIR-NE una: copia un bloc sencer i enganxa'l a sota.
+       Per TREURE'N una: esborra el bloc sencer.
+       ============================================================ -->
+  <section class="sec">
+    <h2 class="sec-h">Preguntes freqüents</h2>
+    <div class="card">
+      <!-- ============================================================
+           INSERIR AQUÍ LES PREGUNTES.
+           Model d'una pregunta (copia'l per cada nova):
+           <div class="acc">
+             <button class="acc-q"><span>PREGUNTA?</span><span class="chev">&rsaquo;</span></button>
+             <div class="acc-a"><div class="inner">RESPOSTA.</div></div>
+           </div>
+           ============================================================ -->
+      <div class="acc">
+        <button class="acc-q"><span>Insereix aquí les preguntes</span><span class="chev">&rsaquo;</span></button>
+        <div class="acc-a"><div class="inner">Pendent d'afegir. Aquí aniran les preguntes i respostes.</div></div>
+      </div>
     </div>
-    <!-- FIN de las preguntas -->
-  </div>
+  </section>
+
 </div>
-<!-- No hace falta tocar nada de aquí abajo: es lo que abre y cierra cada pregunta -->
+<!-- No cal tocar res d'aquí baix: és el que obre i tanca cada pregunta -->
 <script>
 document.querySelectorAll('.acc-q').forEach(function(b){
   b.addEventListener('click',function(){
