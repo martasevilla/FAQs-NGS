@@ -74,6 +74,57 @@ a{color:var(--accent)}
 .acc-a .inner{padding:0 22px 20px;color:#33413b;font-size:15px;
   font-family:Georgia,"Times New Roman",serif;line-height:1.7;white-space:pre-wrap}
 .acc-a .inner a{font-weight:600}
+
+/* ---- Navegador de panells de gens ---- */
+.panel-search{width:100%;padding:11px 14px;font:inherit;font-size:15px;border:1px solid var(--line);
+  border-radius:10px;margin:0 0 16px;color:var(--ink);background:#fff}
+.panel-search:focus{outline:none;border-color:var(--accent)}
+.panel-groups{display:grid;gap:8px}
+.pg{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#fff}
+.pg-h{width:100%;text-align:left;background:none;border:none;font:inherit;font-size:15px;font-weight:600;
+  color:var(--ink);padding:13px 16px;cursor:pointer;display:flex;justify-content:space-between;
+  gap:10px;align-items:center}
+.pg-h:hover{background:#f7faf9}
+.pg-h .pg-count{color:var(--muted);font-weight:400;font-size:13px}
+.pg-h .chev{color:var(--accent);transition:transform .2s;flex:none}
+.pg.open .pg-h .chev{transform:rotate(90deg)}
+.pg-body{display:none;padding:4px 10px 10px;border-top:1px solid var(--border)}
+.pg.open .pg-body{display:block}
+.panel-item{width:100%;text-align:left;background:none;border:none;font:inherit;cursor:pointer;
+  padding:9px 10px;border-radius:8px;display:flex;justify-content:space-between;gap:10px;align-items:center;
+  color:var(--ink)}
+.panel-item:hover{background:#eef5f3}
+.panel-item .p-name{font-size:14px;font-weight:500}
+.panel-item .p-ver{color:var(--muted);font-size:12px;font-weight:400;margin-left:6px}
+.panel-item .p-count{color:var(--accent);font-size:12.5px;font-weight:600;flex:none}
+.panel-alias{padding:9px 10px;font-size:13px;color:var(--muted);font-style:italic}
+.legend{margin:14px 0 0;font-size:12.5px;color:var(--muted);line-height:1.6}
+.legend b{color:var(--ink);font-weight:600}
+
+/* ---- Modal taula de gens ---- */
+.gene-modal{position:fixed;inset:0;background:rgba(20,33,29,.5);display:flex;
+  align-items:center;justify-content:center;padding:16px;z-index:50}
+.gene-modal[hidden]{display:none}
+.gene-modal-box{background:#fff;border-radius:14px;width:100%;max-width:560px;max-height:88vh;
+  display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(20,40,34,.35);overflow:hidden}
+.gene-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
+  padding:18px 20px 12px;border-bottom:1px solid var(--border)}
+.gene-modal-head h3{margin:0 0 3px;font-size:17px}
+.gm-meta{color:var(--muted);font-size:13px}
+.gm-close{background:none;border:none;font-size:26px;line-height:1;color:var(--muted);cursor:pointer;
+  padding:0 4px}
+.gm-close:hover{color:var(--ink)}
+.gene-filter{margin:14px 20px 10px;padding:9px 12px;font:inherit;font-size:14px;border:1px solid var(--line);
+  border-radius:9px;color:var(--ink)}
+.gene-filter:focus{outline:none;border-color:var(--accent)}
+.gene-table-wrap{overflow:auto;padding:0 20px 18px}
+.gene-table{width:100%;border-collapse:collapse;font-size:13.5px;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.gene-table th{position:sticky;top:0;background:#f2f7f5;text-align:left;padding:8px 10px;
+  border-bottom:2px solid var(--line);font-size:12.5px;color:var(--muted);font-weight:600}
+.gene-table td{padding:7px 10px;border-bottom:1px solid var(--border)}
+.gene-table td:first-child{font-weight:600;color:var(--accent-d)}
+.gene-empty{padding:18px 4px;color:var(--muted);font-size:14px;text-align:center}
 </style>
 </head>
 <body>
@@ -128,8 +179,8 @@ a{color:var(--accent)}
           </svg>
         </div>
         <div>
-          <h3>Reanàlisi</h3>
-          <p>Reanotació de dades genòmiques. Si l'estudi original és un CES i el reanàlisi és negatiu cursarem automàticament un WES, sempre i quan els gens sol·licitats no estiguin coberts al CES i tinguin prou evidència clínica. <strong>NO CAL fer petició nova.</strong> El resultat s'informarà en un únic informe<sup>3</sup>.</p>
+          <h3>Re-anàlisi</h3>
+          <p>Reanotació i revisió de <strong>totes les variants detectades</strong> a l'estudi de seqüenciació massiva. Si un CES és negatiu, es farà automàticament un WES quan els gens sol·licitats no estiguin coberts al CES i tinguin evidència clínica. <strong>No cal fer una nova petició</strong> i s'emet un informe únic<sup>3</sup>.</p>
         </div>
       </article>
 
@@ -149,8 +200,8 @@ a{color:var(--accent)}
           </svg>
         </div>
         <div>
-          <h3>Re-avaluació de variants</h3>
-          <p>Revisió i interpretació actualitzada de variants genètiques prèviament informades. Permet confirmar, reclassificar o descartar la rellevància de variants prèviament identificades sense necessitat de generar noves dades de seqüenciació.</p>
+          <h3>Re-avaluació de variants (RAV)</h3>
+          <p>Revisió i interpretació actualitzada de variants prèviament informades amb nova evidència per a la seva reclassificació. <strong>No es tornen a analitzar totes les variants detectades.</strong></p>
         </div>
       </article>
 
@@ -207,11 +258,38 @@ a{color:var(--accent)}
        ============================================================ -->
   <section class="sec">
     <h2 class="sec-h">Llistats de gens</h2>
+    <p class="sec-lead">Explora els panells de gens organitzats per grup de malalties. Clica un grup per desplegar-lo i, després, un panell per veure'n la taula de gens.</p>
     <div class="genes">
-      <a class="btn-link" href="#" target="_blank" rel="noopener">Accedeix als llistats de gens disponibles &rarr;</a>
+      <!-- Cercador i navegador (s'omplen automàticament amb panells-data.js) -->
+      <input id="panelSearch" class="panel-search" type="search" placeholder="Cerca un panell o un grup&hellip;" autocomplete="off">
+      <div id="panelGroups" class="panel-groups"></div>
+
+      <p class="legend"><b>Origen de cada gen:</b> UK = PanelApp UK &middot; AUS = PanelApp Australia &middot; HPO = Human Phenotype Ontology &middot; Bib = Bibliografia &middot; Altres = altres fonts.</p>
       <p class="genes-note"><strong>Com s'han construït:</strong> els llistats de gens són interns i s'actualitzen periòdicament. Es construeixen integrant diferents fonts d'evidència: PanelApp UK i PanelApp Australia, les recomanacions de CatSalut, guies clíniques i bibliografia científica rellevant. Cada gen s'inclou segons la solidesa de la relació gen&ndash;malaltia.</p>
     </div>
   </section>
+
+  <!-- ============================================================
+       MODAL: taula de gens d'un panell (s'obre en clicar un panell)
+       ============================================================ -->
+  <div id="geneModal" class="gene-modal" hidden>
+    <div class="gene-modal-box" role="dialog" aria-modal="true" aria-labelledby="gmTitle">
+      <div class="gene-modal-head">
+        <div>
+          <h3 id="gmTitle"></h3>
+          <span id="gmMeta" class="gm-meta"></span>
+        </div>
+        <button id="gmClose" class="gm-close" aria-label="Tanca">&times;</button>
+      </div>
+      <input id="geneFilter" class="gene-filter" type="search" placeholder="Filtra gens&hellip;" autocomplete="off">
+      <div class="gene-table-wrap">
+        <table class="gene-table">
+          <thead><tr><th>Gen</th><th>Origen</th><th>Data d'incorporaci&oacute;</th></tr></thead>
+          <tbody id="gmBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================================
        SECCIÓ 4: preguntes freqüents
@@ -248,6 +326,101 @@ document.querySelectorAll('.acc-q').forEach(function(b){
     a.style.maxHeight=open?a.scrollHeight+'px':'';
   });
 });
+</script>
+
+<!-- ============================================================
+     DADES DELS PANELLS: generades automàticament des del ZIP.
+     Per actualitzar-les, torna a generar el fitxer panells-data.js.
+     ============================================================ -->
+<script src="panells-data.js"></script>
+
+<!-- No cal tocar res d'aquí baix: construeix el navegador de panells -->
+<script>
+(function(){
+  var data = window.PANELLS;
+  var cont = document.getElementById('panelGroups');
+  if(!data || !cont){ if(cont) cont.innerHTML='<p class="gene-empty">No s\'han pogut carregar els panells.</p>'; return; }
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  // ---- Construeix l'acordió de grups i panells ----
+  data.groups.forEach(function(g){
+    var pg=document.createElement('div'); pg.className='pg';
+    var real=g.panels.filter(function(p){return !p.alias;}).length;
+    var h=document.createElement('button'); h.className='pg-h'; h.type='button';
+    h.innerHTML='<span>'+esc(g.num)+'. '+esc(g.name)+' <span class="pg-count">'+real+' panells</span></span><span class="chev">&rsaquo;</span>';
+    var body=document.createElement('div'); body.className='pg-body';
+    g.panels.forEach(function(p){
+      if(p.alias){
+        var a=document.createElement('div'); a.className='panel-alias';
+        a.textContent=p.name+(p.version?' '+p.version:'')+' — vegeu-lo al seu grup d\'origen';
+        a.dataset.name=(p.name||'').toLowerCase();
+        body.appendChild(a); return;
+      }
+      var it=document.createElement('button'); it.className='panel-item'; it.type='button';
+      it.dataset.name=(p.name||'').toLowerCase();
+      it.innerHTML='<span class="p-name">'+esc(p.name)+(p.version?'<span class="p-ver">'+esc(p.version)+'</span>':'')+'</span><span class="p-count">'+p.n+' gens</span>';
+      it.addEventListener('click',function(){ openPanel(g,p); });
+      body.appendChild(it);
+    });
+    h.addEventListener('click',function(){ pg.classList.toggle('open'); });
+    pg.appendChild(h); pg.appendChild(body);
+    pg.dataset.gname=(g.name+' '+g.num+' '+g.code).toLowerCase();
+    cont.appendChild(pg);
+  });
+
+  // ---- Cercador de panells/grups ----
+  var search=document.getElementById('panelSearch');
+  search.addEventListener('input',function(){
+    var q=search.value.trim().toLowerCase();
+    document.querySelectorAll('.pg').forEach(function(pg){
+      if(!q){ pg.style.display=''; pg.classList.remove('open');
+        pg.querySelectorAll('.panel-item,.panel-alias').forEach(function(x){x.style.display='';}); return; }
+      var groupMatch=pg.dataset.gname.indexOf(q)>=0;
+      var any=false;
+      pg.querySelectorAll('.panel-item,.panel-alias').forEach(function(x){
+        var show=groupMatch || x.dataset.name.indexOf(q)>=0;
+        x.style.display=show?'':'none'; if(show) any=true;
+      });
+      pg.style.display=any?'':'none';
+      if(any) pg.classList.add('open');
+    });
+  });
+
+  // ---- Modal amb la taula de gens ----
+  var modal=document.getElementById('geneModal');
+  var body=document.getElementById('gmBody');
+  var title=document.getElementById('gmTitle');
+  var meta=document.getElementById('gmMeta');
+  var filter=document.getElementById('geneFilter');
+
+  function openPanel(g,p){
+    title.textContent=p.name+(p.version?' '+p.version:'');
+    meta.textContent=g.num+'. '+g.name+' · '+p.n+' gens';
+    var rows=p.genes.map(function(ge){
+      return '<tr><td>'+esc(ge[0])+'</td><td>'+esc(ge[1])+'</td><td>'+esc(ge[2])+'</td></tr>';
+    }).join('');
+    body.innerHTML=rows||'<tr><td colspan="3" class="gene-empty">Aquest panell no té gens.</td></tr>';
+    filter.value='';
+    modal.hidden=false; document.body.style.overflow='hidden';
+    filter.focus();
+  }
+  function closePanel(){ modal.hidden=true; document.body.style.overflow=''; }
+
+  filter.addEventListener('input',function(){
+    var q=filter.value.trim().toLowerCase();
+    var shown=0;
+    body.querySelectorAll('tr').forEach(function(tr){
+      var g=(tr.cells[0]?tr.cells[0].textContent:'').toLowerCase();
+      var show=!q || g.indexOf(q)>=0; tr.style.display=show?'':'none'; if(show) shown++;
+    });
+  });
+
+  document.getElementById('gmClose').addEventListener('click',closePanel);
+  modal.addEventListener('click',function(e){ if(e.target===modal) closePanel(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!modal.hidden) closePanel(); });
+})();
 </script>
 </body>
 </html>
