@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     TÍTOL DE LA PÀGINA (apareix a la pestanya del navegador)
+     ============================================================ -->
+<title>Estudis germinals NGS</title>
+<style>
+:root{--ink:#15211d;--muted:#5d6b64;--accent:#0f766e;--accent-d:#0c5f58;--border:#e3ebe8;
+      --bg:#f6f8f7;--line:#c7d6d0;--ok:#16a34a;--warn:#e08c00;--no:#dc2626}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px}
+h1{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 30px}
+a{color:var(--accent)}
+
+/* ---- Seccions (títols comuns) ---- */
+.sec{margin:0 0 34px}
+.sec-h{font-size:19px;margin:0 0 4px}
+.sec-lead{color:var(--muted);margin:0 0 16px;font-size:15px}
+
+/* ---- Conceptes (amb dibuix) ---- */
+.concepts{display:grid;gap:14px}
+.concept{background:#fff;border:1px solid var(--border);border-radius:14px;
+  box-shadow:0 8px 24px rgba(20,40,34,.06);padding:18px 20px;
+  display:flex;gap:18px;align-items:center}
+.concept-ill{flex:none;width:92px;height:66px}
+.concept-ill svg{width:100%;height:100%;display:block}
+.concept h3{font-size:16px;margin:0 0 5px;color:var(--ink)}
+.concept p{margin:0;font-size:14px;color:#33413b;line-height:1.6;
+  font-family:Georgia,"Times New Roman",serif}
+@media(max-width:520px){.concept{flex-direction:column;text-align:center;gap:12px}}
+
+/* ---- Tipus de troballes ---- */
+.findings{display:grid;gap:12px}
+.finding{background:#fff;border:1px solid var(--border);border-left-width:4px;border-radius:12px;
+  box-shadow:0 6px 18px rgba(20,40,34,.05);padding:15px 18px;display:flex;gap:14px;align-items:flex-start}
+.finding-ico{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  font-size:15px;font-weight:700;line-height:1;color:#fff;font-family:system-ui,sans-serif}
+.finding h3{font-size:15px;margin:1px 0 4px;color:var(--ink)}
+.finding p{margin:0;font-size:13.5px;color:#33413b;line-height:1.55;
+  font-family:Georgia,"Times New Roman",serif}
+.f-dx{border-left-color:var(--ok)}   .f-dx .finding-ico{background:var(--ok)}
+.f-pr{border-left-color:var(--warn)} .f-pr .finding-ico{background:var(--warn)}
+.f-nc{border-left-color:var(--no)}   .f-nc .finding-ico{background:var(--no)}
+.f-al{border-left-color:var(--accent)} .f-al .finding-ico{background:var(--accent)}
+
+/* ---- Llistats de gens ---- */
+.genes{background:#fff;border:1px solid var(--border);border-radius:14px;
+  box-shadow:0 8px 24px rgba(20,40,34,.06);padding:22px 22px 20px}
+.btn-link{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;
+  text-decoration:none;font-weight:600;font-size:15px;padding:12px 18px;border-radius:10px;
+  transition:background .15s}
+.btn-link:hover{background:var(--accent-d)}
+.genes-note{margin:16px 0 0;font-size:13.5px;color:var(--muted);line-height:1.65}
+.genes-note strong{color:var(--ink)}
+
+/* ---- Preguntes (FAQ) ---- */
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  box-shadow:0 8px 24px rgba(20,40,34,.06)}
+.acc{border-bottom:1px solid var(--border)}
+.acc:last-child{border-bottom:none}
+.acc-q{width:100%;text-align:left;background:none;border:none;font:inherit;font-size:16px;
+  font-weight:600;color:var(--ink);padding:17px 22px;cursor:pointer;display:flex;
+  justify-content:space-between;gap:12px;align-items:center}
+.acc-q:hover{background:#f7faf9}
+.chev{color:var(--accent);transition:transform .2s;flex:none}
+.acc.open .chev{transform:rotate(90deg)}
+.acc-a{max-height:0;overflow:hidden;transition:max-height .25s ease}
+.acc-a .inner{padding:0 22px 20px;color:#33413b;font-size:15px;
+  font-family:Georgia,"Times New Roman",serif;line-height:1.7;white-space:pre-wrap}
+.acc-a .inner a{font-weight:600}
+
+/* ---- Navegador de panells de gens ---- */
+.panel-search{width:100%;padding:11px 14px;font:inherit;font-size:15px;border:1px solid var(--line);
+  border-radius:10px;margin:0 0 16px;color:var(--ink);background:#fff}
+.panel-search:focus{outline:none;border-color:var(--accent)}
+.panel-groups{display:grid;gap:8px}
+.pg{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#fff}
+.pg-h{width:100%;text-align:left;background:none;border:none;font:inherit;font-size:15px;font-weight:600;
+  color:var(--ink);padding:13px 16px;cursor:pointer;display:flex;justify-content:space-between;
+  gap:10px;align-items:center}
+.pg-h:hover{background:#f7faf9}
+.pg-h .pg-count{color:var(--muted);font-weight:400;font-size:13px}
+.pg-h .chev{color:var(--accent);transition:transform .2s;flex:none}
+.pg.open .pg-h .chev{transform:rotate(90deg)}
+.pg-body{display:none;padding:4px 10px 10px;border-top:1px solid var(--border)}
+.pg.open .pg-body{display:block}
+.panel-item{width:100%;text-align:left;background:none;border:none;font:inherit;cursor:pointer;
+  padding:9px 10px;border-radius:8px;display:flex;justify-content:space-between;gap:10px;align-items:center;
+  color:var(--ink)}
+.panel-item:hover{background:#eef5f3}
+.panel-item .p-name{font-size:14px;font-weight:500}
+.panel-item .p-ver{color:var(--muted);font-size:12px;font-weight:400;margin-left:6px}
+.panel-item .p-count{color:var(--accent);font-size:12.5px;font-weight:600;flex:none}
+.panel-alias{padding:9px 10px;font-size:13px;color:var(--muted);font-style:italic}
+.legend{margin:14px 0 0;font-size:12.5px;color:var(--muted);line-height:1.6}
+.legend b{color:var(--ink);font-weight:600}
+
+/* ---- Modal taula de gens ---- */
+.gene-modal{position:fixed;inset:0;background:rgba(20,33,29,.5);display:flex;
+  align-items:center;justify-content:center;padding:16px;z-index:50}
+.gene-modal[hidden]{display:none}
+.gene-modal-box{background:#fff;border-radius:14px;width:100%;max-width:560px;max-height:88vh;
+  display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(20,40,34,.35);overflow:hidden}
+.gene-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
+  padding:18px 20px 12px;border-bottom:1px solid var(--border)}
+.gene-modal-head h3{margin:0 0 3px;font-size:17px}
+.gm-meta{color:var(--muted);font-size:13px}
+.gm-close{background:none;border:none;font-size:26px;line-height:1;color:var(--muted);cursor:pointer;
+  padding:0 4px}
+.gm-close:hover{color:var(--ink)}
+.gene-filter{margin:14px 20px 10px;padding:9px 12px;font:inherit;font-size:14px;border:1px solid var(--line);
+  border-radius:9px;color:var(--ink)}
+.gene-filter:focus{outline:none;border-color:var(--accent)}
+.gene-table-wrap{overflow:auto;padding:0 20px 18px}
+.gene-table{width:100%;border-collapse:collapse;font-size:13.5px;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.gene-table th{position:sticky;top:0;background:#f2f7f5;text-align:left;padding:8px 10px;
+  border-bottom:2px solid var(--line);font-size:12.5px;color:var(--muted);font-weight:600}
+.gene-table td{padding:7px 10px;border-bottom:1px solid var(--border)}
+.gene-table td:first-child{font-weight:600;color:var(--accent-d)}
+.gene-empty{padding:18px 4px;color:var(--muted);font-size:14px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- ============================================================
+       CAPÇALERA: canvia el títol i el subtítol pels teus
+       ============================================================ -->
+  <h1>Estudis germinals NGS</h1>
+  <p class="sub">Guia ràpida i preguntes freqüents</p>
+
+  <!-- ============================================================
+       SECCIÓ 1: conceptes clau
+       ============================================================ -->
+  <section class="sec">
+    <h2 class="sec-h">Conceptes bàsics</h2>
+    <p class="sec-lead">Tres idees per entendre el teu estudi genètic.</p>
+
+    <div class="concepts">
+
+      <!-- 1. EXOMA COMPLET (WES) -->
+      <article class="concept">
+        <div class="concept-ill">
+          <svg viewBox="0 0 96 72" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Exoma complet (WES)">
+            <line x1="6" y1="36" x2="90" y2="36" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
+            <rect x="10" y="27" width="12" height="18" rx="3.5" fill="var(--accent)"/>
+            <rect x="30" y="27" width="9"  height="18" rx="3.5" fill="var(--accent)"/>
+            <rect x="47" y="27" width="14" height="18" rx="3.5" fill="var(--accent)"/>
+            <rect x="69" y="27" width="8"  height="18" rx="3.5" fill="var(--accent)"/>
+            <rect x="80" y="27" width="6"  height="18" rx="3.5" fill="var(--accent)"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Exoma complet (WES)</h3>
+          <p>Seqüenciació de <strong>totes les regions codificants</strong> del genoma (els exons), on es concentra la major part de les variants causants de malaltia. A diferència de l'exoma clínic (CES), que se centra en un llistat de gens seleccionats, el WES analitza tots els gens amb regió codificant.</p>
+        </div>
+      </article>
+
+      <!-- 2. REANÀLISI -->
+      <article class="concept">
+        <div class="concept-ill">
+          <svg viewBox="0 0 96 72" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Reanàlisi">
+            <rect x="16" y="14" width="40" height="42" rx="5" fill="#fff" stroke="var(--accent)" stroke-width="2"/>
+            <line x1="23" y1="25" x2="49" y2="25" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="34" x2="49" y2="34" stroke="var(--line)"  stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="43" x2="41" y2="43" stroke="var(--line)"  stroke-width="2" stroke-linecap="round"/>
+            <circle cx="58" cy="50" r="15" fill="var(--bg)"/>
+            <g transform="translate(49.4 41.4) scale(0.72)" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"/>
+              <polyline points="1 20 1 14 7 14"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <h3>Re-anàlisi</h3>
+          <p>Reanotació i revisió de <strong>totes les variants detectades</strong> a l'estudi de seqüenciació massiva. Si un CES és negatiu, es farà automàticament un WES quan els gens sol·licitats no estiguin coberts al CES i tinguin evidència clínica. <strong>No cal fer una nova petició</strong> i s'emet un informe únic<sup>3</sup>.</p>
+        </div>
+      </article>
+
+      <!-- 3. RE-AVALUACIÓ DE VARIANTS -->
+      <article class="concept">
+        <div class="concept-ill">
+          <svg viewBox="0 0 96 72" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Re-avaluació de variants">
+            <line x1="8" y1="44" x2="88" y2="44" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="16" cy="44" r="2.5" fill="var(--line)"/>
+            <circle cx="28" cy="44" r="2.5" fill="var(--line)"/>
+            <circle cx="40" cy="44" r="2.5" fill="var(--line)"/>
+            <circle cx="66" cy="44" r="2.5" fill="var(--line)"/>
+            <circle cx="78" cy="44" r="2.5" fill="var(--line)"/>
+            <circle cx="50" cy="44" r="4.5" fill="var(--accent)"/>
+            <circle cx="50" cy="38" r="15" fill="rgba(255,255,255,.55)" stroke="var(--accent)" stroke-width="3"/>
+            <line x1="61" y1="49" x2="72" y2="60" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Re-avaluació de variants (RAV)</h3>
+          <p>Revisió i interpretació actualitzada de variants prèviament informades amb nova evidència per a la seva reclassificació. <strong>No es tornen a analitzar totes les variants detectades.</strong></p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECCIÓ 2: tipus de troballes
+       ============================================================ -->
+  <section class="sec">
+    <h2 class="sec-h">Tipus de troballes</h2>
+    <p class="sec-lead">Què pot indicar el teu informe.</p>
+
+    <div class="findings">
+
+      <article class="finding f-dx">
+        <span class="finding-ico">&#10003;</span>
+        <div>
+          <h3>Troballes probablement diagnòstiques</h3>
+          <p>S'han identificat una o més variants genètiques amb prou evidència per considerar-les causants de la malaltia o altament relacionades amb el fenotip observat. En aquests casos, la troballa té una alta probabilitat d'explicar la sospita clínica que ha motivat l'estudi.</p>
+        </div>
+      </article>
+
+      <article class="finding f-pr">
+        <span class="finding-ico">?</span>
+        <div>
+          <h3>Troballes de possible rellevància clínica</h3>
+          <p>S'han identificat variants amb una relació potencial amb el fenotip del pacient, però l'evidència disponible actualment no és suficient per confirmar el paper diagnòstic. Aquestes troballes poden adquirir més rellevància en el futur si es disposa de nova informació clínica, familiar o científica.</p>
+        </div>
+      </article>
+
+      <article class="finding f-nc">
+        <span class="finding-ico">&#10005;</span>
+        <div>
+          <h3>No concloent</h3>
+          <p>No s'han identificat variants amb prou evidència per establir una relació clara amb el fenotip o la sospita clínica. Un resultat no concloent no exclou l'existència d'una causa genètica subjacent i pot justificar futurs reanàlisis a mesura que augmenti el coneixement científic.</p>
+        </div>
+      </article>
+
+      <article class="finding f-al">
+        <span class="finding-ico">+</span>
+        <div>
+          <h3>Altres troballes genètiques</h3>
+          <p>Qualsevol dels resultats anteriors és compatible amb un informe que inclogui un apartat d'altres troballes genètiques, on es descriuen variants detectades que no disposen de prou evidència per considerar-se candidates sòlides. Es reporten per transparència i traçabilitat, però en general tenen una probabilitat baixa de resultar clínicament rellevants amb la informació disponible.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECCIÓ 3: llistats de gens
+       ⬇⬇⬇  ENGANXA AQUÍ L'URL DELS LLISTATS a href="..."  ⬇⬇⬇
+       ============================================================ -->
+  <section class="sec">
+    <h2 class="sec-h">Llistats de gens</h2>
+    <p class="sec-lead">Explora els panells de gens organitzats per grup de malalties. Clica un grup per desplegar-lo i, després, un panell per veure'n la taula de gens.</p>
+    <div class="genes">
+      <!-- Cercador i navegador (s'omplen automàticament amb panells-data.js) -->
+      <input id="panelSearch" class="panel-search" type="search" placeholder="Cerca un panell, un grup o un gen&hellip;" autocomplete="off">
+      <div id="panelGroups" class="panel-groups"></div>
+
+      <p class="legend"><b>Origen de cada gen:</b> UK = PanelApp UK &middot; AUS = PanelApp Australia &middot; HPO = Human Phenotype Ontology &middot; Bib = Bibliografia &middot; Altres = altres fonts.</p>
+      <p class="genes-note"><strong>Com s'han construït:</strong> els llistats de gens són interns i s'actualitzen periòdicament. Es construeixen integrant diferents fonts d'evidència: PanelApp UK i PanelApp Australia, les recomanacions de CatSalut, guies clíniques i bibliografia científica rellevant. Cada gen s'inclou segons la solidesa de la relació gen&ndash;malaltia.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODAL: taula de gens d'un panell (s'obre en clicar un panell)
+       ============================================================ -->
+  <div id="geneModal" class="gene-modal" hidden>
+    <div class="gene-modal-box" role="dialog" aria-modal="true" aria-labelledby="gmTitle">
+      <div class="gene-modal-head">
+        <div>
+          <h3 id="gmTitle"></h3>
+          <span id="gmMeta" class="gm-meta"></span>
+        </div>
+        <button id="gmClose" class="gm-close" aria-label="Tanca">&times;</button>
+      </div>
+      <input id="geneFilter" class="gene-filter" type="search" placeholder="Filtra gens&hellip;" autocomplete="off">
+      <div class="gene-table-wrap">
+        <table class="gene-table">
+          <thead><tr><th>Gen</th><th>Origen</th><th>Data d'incorporaci&oacute;</th></tr></thead>
+          <tbody id="gmBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECCIÓ 4: preguntes freqüents
+       CADA PREGUNTA ÉS UN BLOC "acc" COM AQUEST.
+       - Escriu la pregunta dins del <span>...</span>
+       - Escriu la resposta dins del <div class="inner">...</div>
+       Per AFEGIR-NE una: copia un bloc sencer i enganxa'l a sota.
+       Per TREURE'N una: esborra el bloc sencer.
+       ============================================================ -->
+  <section class="sec">
+    <h2 class="sec-h">Preguntes freqüents</h2>
+    <div class="card">
+      <!-- ============================================================
+           INSERIR AQUÍ LES PREGUNTES.
+           Model d'una pregunta (copia'l per cada nova):
+           <div class="acc">
+             <button class="acc-q"><span>PREGUNTA?</span><span class="chev">&rsaquo;</span></button>
+             <div class="acc-a"><div class="inner">RESPOSTA.</div></div>
+           </div>
+           ============================================================ -->
+      <div class="acc">
+        <button class="acc-q"><span>Insereix aquí les preguntes</span><span class="chev">&rsaquo;</span></button>
+        <div class="acc-a"><div class="inner">Pendent d'afegir. Aquí aniran les preguntes i respostes.</div></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<!-- No cal tocar res d'aquí baix: és el que obre i tanca cada pregunta -->
+<script>
+document.querySelectorAll('.acc-q').forEach(function(b){
+  b.addEventListener('click',function(){
+    var acc=b.parentNode,a=b.nextElementSibling,open=acc.classList.toggle('open');
+    a.style.maxHeight=open?a.scrollHeight+'px':'';
+  });
+});
+</script>
+
+<!-- ============================================================
+     DADES DELS PANELLS: generades automàticament des del ZIP.
+     Per actualitzar-les, torna a generar el fitxer panells-data.js.
+     ============================================================ -->
+<script>
+/* Dades generades automàticament des de Panells.zip */
+/*__PANELLS_DATA__*/
+</script>
+
+<!-- No cal tocar res d'aquí baix: construeix el navegador de panells -->
+<script>
+(function(){
+  var data = window.PANELLS;
+  var cont = document.getElementById('panelGroups');
+  if(!data || !cont){ if(cont) cont.innerHTML='<p class="gene-empty">No s\'han pogut carregar els panells.</p>'; return; }
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  // ---- Construeix l'acordió de grups i panells ----
+  data.groups.forEach(function(g){
+    var pg=document.createElement('div'); pg.className='pg';
+    var real=g.panels.filter(function(p){return !p.alias;}).length;
+    var h=document.createElement('button'); h.className='pg-h'; h.type='button';
+    h.innerHTML='<span>'+esc(g.num)+'. '+esc(g.name)+' <span class="pg-count">'+real+' panells</span></span><span class="chev">&rsaquo;</span>';
+    var body=document.createElement('div'); body.className='pg-body';
+    g.panels.forEach(function(p){
+      if(p.alias){
+        var a=document.createElement('div'); a.className='panel-alias';
+        a.textContent=p.name+(p.version?' '+p.version:'')+' — vegeu-lo al seu grup d\'origen';
+        a.dataset.name=(p.name||'').toLowerCase();
+        body.appendChild(a); return;
+      }
+      var it=document.createElement('button'); it.className='panel-item'; it.type='button';
+      it.dataset.name=(p.name||'').toLowerCase();
+      it._panel=p;   // referència per a la cerca per gen
+      it.innerHTML='<span class="p-name">'+esc(p.name)+(p.version?'<span class="p-ver">'+esc(p.version)+'</span>':'')+'</span><span class="p-count">'+p.n+' gens</span>';
+      it.addEventListener('click',function(){ openPanel(g,p); });
+      body.appendChild(it);
+    });
+    h.addEventListener('click',function(){ pg.classList.toggle('open'); });
+    pg.appendChild(h); pg.appendChild(body);
+    pg.dataset.gname=(g.name+' '+g.num+' '+g.code).toLowerCase();
+    cont.appendChild(pg);
+  });
+
+  // ---- Cercador de panells / grups / gens ----
+  var search=document.getElementById('panelSearch');
+  function geneMatch(el,q){                       // el panell conté un gen que coincideix?
+    var p=el._panel; if(!p||!p.genes) return false;
+    for(var i=0;i<p.genes.length;i++){ if(p.genes[i][0].toLowerCase().indexOf(q)>=0) return true; }
+    return false;
+  }
+  search.addEventListener('input',function(){
+    var q=search.value.trim().toLowerCase();
+    var byGene=q.length>=2;                        // la cerca per gen només amb 2+ caràcters
+    document.querySelectorAll('.pg').forEach(function(pg){
+      if(!q){ pg.style.display=''; pg.classList.remove('open');
+        pg.querySelectorAll('.panel-item,.panel-alias').forEach(function(x){x.style.display='';}); return; }
+      var groupMatch=pg.dataset.gname.indexOf(q)>=0;
+      var any=false;
+      pg.querySelectorAll('.panel-item,.panel-alias').forEach(function(x){
+        var show=groupMatch || x.dataset.name.indexOf(q)>=0
+                 || (byGene && x.classList.contains('panel-item') && geneMatch(x,q));
+        x.style.display=show?'':'none'; if(show) any=true;
+      });
+      pg.style.display=any?'':'none';
+      if(any) pg.classList.add('open');
+    });
+  });
+
+  // ---- Modal amb la taula de gens ----
+  var modal=document.getElementById('geneModal');
+  var body=document.getElementById('gmBody');
+  var title=document.getElementById('gmTitle');
+  var meta=document.getElementById('gmMeta');
+  var filter=document.getElementById('geneFilter');
+
+  function openPanel(g,p){
+    title.textContent=p.name+(p.version?' '+p.version:'');
+    meta.textContent=g.num+'. '+g.name+' · '+p.n+' gens';
+    var rows=p.genes.map(function(ge){
+      return '<tr><td>'+esc(ge[0])+'</td><td>'+esc(ge[1])+'</td><td>'+esc(ge[2])+'</td></tr>';
+    }).join('');
+    body.innerHTML=rows||'<tr><td colspan="3" class="gene-empty">Aquest panell no té gens.</td></tr>';
+    filter.value='';
+    modal.hidden=false; document.body.style.overflow='hidden';
+    filter.focus();
+  }
+  function closePanel(){ modal.hidden=true; document.body.style.overflow=''; }
+
+  filter.addEventListener('input',function(){
+    var q=filter.value.trim().toLowerCase();
+    var shown=0;
+    body.querySelectorAll('tr').forEach(function(tr){
+      var g=(tr.cells[0]?tr.cells[0].textContent:'').toLowerCase();
+      var show=!q || g.indexOf(q)>=0; tr.style.display=show?'':'none'; if(show) shown++;
+    });
+  });
+
+  document.getElementById('gmClose').addEventListener('click',closePanel);
+  modal.addEventListener('click',function(e){ if(e.target===modal) closePanel(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!modal.hidden) closePanel(); });
+})();
+</script>
+</body>
+</html>
