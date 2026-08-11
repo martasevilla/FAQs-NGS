@@ -1,0 +1,44 @@
+name: Actualitzar panells
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Panells.zip'
+      - 'faqs.template.html'
+      - 'generar_panells.py'
+      - '.github/workflows/actualitzar-panells.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descarrega el repositori
+        uses: actions/checkout@v4
+
+      - name: Instal·la Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instal·la dependències
+        run: pip install openpyxl
+
+      - name: Regenera faqs.html des de Panells.zip
+        run: python generar_panells.py
+
+      - name: Publica els canvis (si n'hi ha)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain faqs.html)" ]; then
+            git add faqs.html
+            git commit -m "Actualitza faqs.html des de Panells.zip"
+            git push
+          else
+            echo "Cap canvi a faqs.html."
+          fi
